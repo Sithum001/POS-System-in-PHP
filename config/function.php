@@ -1,6 +1,7 @@
 <?php
 session_start();
-require('config/dbcon.php');
+require(__DIR__ . '/dbcon.php'); // Always works
+
 
 //input field validati0n
 function validate($inputData){
@@ -55,8 +56,8 @@ function  update($tableName, $id,$data){
 
     $updateDataString = "";
     foreach($data as $column => $value){
-      $updateDataString .= $column = '='."'$value',";
- 
+      $updateDataString .= $column.'='."'$value',";
+
     }
       $finalUpdateData =substr($updateDataString, 0, -1); //remove last comma
       $query = "UPDATE $table SET $finalUpdateData WHERE id='$id'";
@@ -64,4 +65,85 @@ function  update($tableName, $id,$data){
       return $result;
 }
 
+function getAll($tableName, $status = NULL){
+    global $con;
+    $table = validate($tableName);
+    $query = "SELECT * FROM $table";
+    
+    if($status =='status'){
+         $query = "SELECT * FROM $table WHERE status='0'";
+    }
+    else{
+        $query = "SELECT * FROM $table";
+    }
+
+    return mysqli_query($con,$query);
+}
+
+//get record by id using this function
+function getById($tableName, $id){
+    global $con;
+    $table = validate($tableName);
+    $id = validate($id);
+
+    $query = "SELECT * FROM $table WHERE id='$id' LIMIT 1";
+    $result = mysqli_query($con, $query);
+
+    if ($result) {
+          if(mysqli_num_rows($result)==1)   {
+               // $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $row = mysqli_fetch_assoc($result);
+                     $reesponse =[
+            'status'  =>200,
+            'data'=>$row,
+            'message' => 'Record Found'
+        ];
+        return $reesponse;
+
+          }else{
+              $reesponse =[
+            'status'  =>404,
+            'message' => 'No Data  Found'
+        ];
+        return $reesponse;
+          }
+
+    } else {
+        $reesponse =[
+            'status'  =>500,
+            'message' => 'Something went wrong',
+        ];
+        return $reesponse;
+    }
+}
+
+//Delete record  using this function
+function delete($tableName, $id){
+   global $con;
+    $table = validate($tableName);
+    $id = validate($id);
+
+    $query = "DELETE FROM $table WHERE id='$id' LIMIT 1";
+    $result = mysqli_query($con, $query);
+    return $result;
+
+}
+
+
+//cheack paramiterID
+
+function checkParamId($type){
+    if (isset($_GET[$type])) {
+        if ($_GET[$type] != '') {
+            
+           return $_GET[$type];
+        }
+        else {
+            return '<h5>No Id Found. <h5/>';
+        }
+    } else {
+        return '<h5>No Id Given in Prams </h5>';
+    }
+    
+}
 ?>
