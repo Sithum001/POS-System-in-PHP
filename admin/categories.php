@@ -4,20 +4,21 @@
                         <h1 class="mt-4">Dashboard</h1>
                            <div class="card mt-44 shadow-sm"> 
                              <div class="card-header">
-                                 <h4 class="mb-0">Admins/Staff 
-                                    <a href="admins-create.php" class="btn btn-primary float-end">Add Admin</a>
+                                 <h4 class="mb-0">Categories
+                                    <a href="categories-create.php" class="btn btn-primary float-end">Add Category</a>
                                  </h4>
 
                              </div>   
-                             <div class="card-body">
+                             <div class="cardd-body">
+
                                  <?php alertMessaage(); ?>
                                    <?php
-                                            $admins = getAll('admins');
-                                            if (!$admins) {
+                                            $categories = getAll('categories');
+                                            if (!$categories) {
                                                 echo'<h4>something Went Wrong</h4>';
                                                 return false;
                                             }
-                                            if (mysqli_num_rows($admins)>0) {
+                                            if (mysqli_num_rows($categories)>0) {
                                                 
                                            
                                             ?> 
@@ -28,30 +29,30 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Email</th>
+                                                <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                           
-                                            <?php foreach($admins as $adminIteam) : ?>
+                                            <?php foreach($categories as $Iteam) : ?>
                                             <tr>
-                                                <td><?= $adminIteam['id'] ?></td>
-                                                <td><?= $adminIteam['name'] ?></td>
-                                                <td><?= $adminIteam['email'] ?></td>
+                                                <td><?= $Iteam['id'] ?></td>
+                                                <td><?= $Iteam['name'] ?></td>
+                                               
                                                 <td>
-                                                     <?php
-                                                    if($adminIteam['is_ban']==1){
-                                                           echo'<span class="badge bg-danger">Banned</span>';
+                                                    <?php
+                                                    if($Iteam['status']==1){
+                                                           echo'<span class="badge bg-danger">Hidden</span>';
                                                     }
                                                     else{
-                                                           echo'<span class="badge bg-primary">Active</span>';
+                                                           echo'<span class="badge bg-primary">Visible</span>';
                                                     }
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <a href="admins-edit.php?id=<?= $adminIteam['id'] ?>"  class="btn btn-success btn-sm">Edit</a>
-                                                    <a href="admins-delete.php?id=<?= $adminIteam['id'] ?>" class="btn btn-danger btn-sm">delete</a>
+                                                    <a href="categories-edit.php?id=<?= $Iteam['id'] ?>"  class="btn btn-success btn-sm">Edit</a>
+                                                    <a href="categories-delete.php?id=<?= $Iteam['id'] ?>" class="btn btn-danger btn-sm">delete</a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>

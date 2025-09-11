@@ -42,7 +42,7 @@ else{
 }
 }
 
-if (isset($_POST['updateAdmin'])) {
+if (isset($_POST['updateAdmin'])) {{
 
  $adminId =validate($_POST['adminId']);
  $adminData =getById('admins',$adminId);
@@ -55,7 +55,7 @@ if (isset($_POST['updateAdmin'])) {
  $email =validate($_POST['email']);
  $password =validate($_POST['password']);
  $phone =validate($_POST['phone']);
- $is_ban =validate($_POST['is_ban'])== true ? 1:0;
+ $is_ban =validate($_POST['is_ban'])== true?1:0;
 
  $emailCheck = mysqli_query($con,"SELECT * FROM admins WHERE email='$email' AND id!='$adminId'");
   if($emailCheck){
@@ -94,8 +94,52 @@ if (isset($_POST['updateAdmin'])) {
 }
 else{
     redirect('admins-create.php','Plase fill required fields');
+}}
+
+
+if (isset($_POST['saveCategory'])) {
+  $name  =validate($_POST['name']);
+  $description =validate($_POST['description']);
+  $status = isset($_POST['status']) == true ? 1:0;
+
+
+  $data =[
+     'name' => $name,
+     'description' => $description,
+     'status' => $status
+  ];
+      $result = insert('categories',$data);
+
+      if ($result) {
+        redirect('categories.php','Category Created Succesfully!');
+      }
+      else{
+        redirect('categories-create.php','Something Went Wrong!');
+       }
 }
 
 
+if (isset($_POST['updateCategory'])) {
+  $categoryId  =validate($_POST['categoryId']);
+  $name  =validate($_POST['name']);
+  $description =validate($_POST['description']);
+  $status = isset($_POST['status']) == true ? 1:0;
+
+
+  $data =[
+     'name' => $name,
+     'description' => $description,
+     'status' => $status
+  ];
+      $result = update('categories',$categoryId,$data);
+
+      if ($result) {
+        redirect('categories-edit.php?id='.$categoryId,'Category Updated Succesfully!');
+      }
+      else{
+        redirect('categories-edit.php?id='.$categoryId,'Something Went Wrong!');
+       }
+
+}
 
 ?>
