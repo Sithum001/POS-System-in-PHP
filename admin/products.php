@@ -40,7 +40,7 @@
                                             <tr>
                                                 <td><?= $Iteam['id'] ?></td>
                                                 <td>
-                                                    <img src="../<?= $Iteam['image']; ?>" style="width:50px;height:50px;" alt="IMG">
+                                                  <img src="<?= $Iteam['image'] ?>" style="width:50px;height:50px;" alt="IMG">
                                                 </td>
                                                 <td><?= $Iteam['name'] ?></td>
                                                
@@ -56,7 +56,9 @@
                                                 </td>
                                                 <td>
                                                     <a href="products-edit.php?id=<?= $Iteam['id'] ?>"  class="btn btn-success btn-sm">Edit</a>
-                                                    <a href="products-delete.php?id=<?= $Iteam['id'] ?>" class="btn btn-danger btn-sm">delete</a>
+                                                    <a href="products-delete.php?id=<?= $Iteam['id'] ?>" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure want to delete this product ')"
+                                                    >delete</a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>

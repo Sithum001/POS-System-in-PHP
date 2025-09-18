@@ -32,8 +32,8 @@
                             </a>
                             <div class="collapse" id="collapseProducts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="categories-create.php">Create Products</a>
-                                    <a class="nav-link" href="categories.php">View Products</a>
+                                    <a class="nav-link" href="products-create.php">Create Products</a>
+                                    <a class="nav-link" href="products.php">View Products</a>
                                 </nav>
                             </div>
                            
