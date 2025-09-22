@@ -240,7 +240,7 @@ if (isset($_POST['updateProduct'])) {
        }
 }
 
-if(isset($_POST['savecustomer']))
+if(isset($_POST['saveCustomer']))
 {
   $name =validate($_POST['name']);
   $email =validate($_POST['email']);
@@ -248,14 +248,72 @@ if(isset($_POST['savecustomer']))
   $status =isset($_POST['status'])? 1:0;
 
   if ($name != '') {
-    $email
-  } else {
-    # code...
+    $emailCheck =mysqli_query($con,"SELECT * FROM customers WHERE email='$email'");
+    if ($emailCheck) {
+      if (mysqli_num_rows($emailCheck)>0) {
+        redirect('customers.php','Email Already used by the another user');
+
+      }
+    }
+    $data =[ 
+       'name' => $name ,
+       'email' => $email,
+       'phone' => $phone,
+       'status' => $status 
+
+    ];
+    $result =insert('customers',$data);
+    if ($result) {
+     redirect('customers.php','Customer Created Successfully');
+    } else {
+      redirect('customers.php','Something Went Wrong');
+    }
+    
+
+  } else
+   {
+     redirect('customers.php','Pease fill required fields');
   }
   
 
 }
 
+if (isset($_POST['updateCustomer'])) {
 
+  $customerId =validate($_POST['customerId']);
+  $name =validate($_POST['name']);
+  $email =validate($_POST['email']);
+  $phone =validate($_POST['phone']);
+  $status =isset($_POST['status'])? 1:0;
+
+  if ($name != '') {
+    $emailCheck =mysqli_query($con,"SELECT * FROM customers WHERE email='$email' AND id!='$customerId'");
+    if ($emailCheck) {
+      if (mysqli_num_rows($emailCheck)>0) {
+        redirect('customers-edit.php?id='.$customerId,'Email Already used by the another user');
+
+      }
+    }
+    $data =[ 
+       'name' => $name ,
+       'email' => $email,
+       'phone' => $phone,
+       'status' => $status 
+
+    ];
+    $result =update('customers',$customerId,$data);
+    if ($result) {
+     redirect('customers-edit.php?id='.$customerId,'Customer Updated Successfully');
+    } else {
+      redirect('customers-edit.php?id='.$customerId,'Something Went Wrong');
+    }
+    
+
+  } else
+   {
+     redirect('customers-edit.php?id='.$customerId,'Pease fill required fields');
+  }
+  
+}
 
 ?>

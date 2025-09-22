@@ -29,6 +29,8 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
@@ -54,7 +56,9 @@
                                                 </td>
                                                 <td>
                                                     <a href="customers-edit.php?id=<?= $Iteam['id'] ?>"  class="btn btn-success btn-sm">Edit</a>
-                                                    <a href="customers-delete.php?id=<?= $Iteam['id'] ?>" class="btn btn-danger btn-sm">delete</a>
+                                                    <a href="customers-delete.php?id=<?= $Iteam['id'] ?>" class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Are you sure want to delete this product ')">
+                                                    Delete</a>
                                                 </td>
                                             </tr>
                                             <?php endforeach; ?>
