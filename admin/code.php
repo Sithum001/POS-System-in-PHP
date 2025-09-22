@@ -240,4 +240,22 @@ if (isset($_POST['updateProduct'])) {
        }
 }
 
+if(isset($_POST['savecustomer']))
+{
+  $name =validate($_POST['name']);
+  $email =validate($_POST['email']);
+  $phone =validate($_POST['phone']);
+  $status =isset($_POST['status'])? 1:0;
+
+  if ($name != '') {
+    $email
+  } else {
+    # code...
+  }
+  
+
+}
+
+
+
 ?>
