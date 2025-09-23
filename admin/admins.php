@@ -2,7 +2,7 @@
 
          <div class="container-fluid px-4">
                         <h1 class="mt-4">Dashboard</h1>
-                           <div class="card mt-44 shadow-sm"> 
+                           <div class="card mt-4 shadow-sm"> 
                              <div class="card-header">
                                  <h4 class="mb-0">Admins/Staff 
                                     <a href="admins-create.php" class="btn btn-primary float-end">Add Admin</a>
