@@ -65,4 +65,21 @@ if (isset($_POST['addItem'])) {
     }
     
 }
+
+if (isset($_POST['productIncDec'])) {
+    $productId =validate($_POST['product_id']);
+    $quantity =validate($_POST['quantity']);
+
+    $flag=false;
+    foreach($_SESSION['productItems'] as $key => $item){
+        if ($item['product_id']==$productId) {
+            $_SESSION['productItems'][$key]['quantity']=$quantity ;
+
+        }
+    }
+
+    
+      jsonResponse(200, 'success', 'Quantity Updated');
+  
+}
 ?>
