@@ -1,5 +1,36 @@
 <?php include('includes/header.php'); ?>
 
+
+<!-- Modal -->
+<div class="modal fade" id="addCustomerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add Customer</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+            <label for="">Enter Customer Name</label>
+            <input type="text" name="" class="form-control" id="c_name"/>
+        </div>
+        <div class="mb-3">
+            <label for="">Enter Customer Phone No.</label>
+            <input type="text" name="" class="form-control" id="c_phone"/>
+        </div>
+        <div class="mb-3">
+            <label for="">Enter Customer Email(optional)</label>
+            <input type="text" name="" class="form-control" id="c_email"/>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary saveCustomer">Save </button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="container-fluid px-4">
 
     <div class="card mt-4 shadow-sm">
@@ -9,7 +40,7 @@
             </h4>
 
         </div>
-        <div class="card-body">
+        <div class="card-body" id="productArea">
             <?php alertMessaage(); ?>
 
             <form action="orders-code.php" method="POST">
@@ -61,8 +92,12 @@
             <?php
             if (isset($_SESSION['productItems'])) {
                 $sessonProducts = $_SESSION['productItems'];
+                if (empty($sessonProducts)) {
+                   unset($_SESSION['productItemIds']);
+                   unset($_SESSION['productItems']);
+                }
             ?>
-                <div class="table-responsive mb-3">
+                <div class="table-responsive mb-3" id="productContent">
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -101,6 +136,27 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-2">
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="">Select Payment Mode</label>
+                            <select id="payment_mode" class="form-select">
+                                <option value="">-- Select Payment --</option>
+                                <option value="Cash Payment">Cash Payment</option>
+                                <option value="Online Payment">Online Payment</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="">Enter customer Phone Number</label>
+                            <input type="number" id="cphone" class="form-control" value="">
+                        </div>
+                        <div class="col-md-4">
+                            <br/>
+                            <button type="button" class="btn btn-warning w-100 proceedToPlace">Proceed to place order</button>
+                        </div>
+                    </div>
                 </div>
             <?php
             } else {
