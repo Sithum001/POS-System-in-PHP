@@ -41,7 +41,7 @@
                                                 <td><?= $adminIteam['email'] ?></td>
                                                 <td>
                                                      <?php
-                                                    if($adminIteam['is_ban']==1){
+                                                    if($adminIteam['is_ban']==true){
                                                            echo'<span class="badge bg-danger">Banned</span>';
                                                     }
                                                     else{

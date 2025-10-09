@@ -55,7 +55,7 @@ if (isset($_POST['updateAdmin'])) {{
  $email =validate($_POST['email']);
  $password =validate($_POST['password']);
  $phone =validate($_POST['phone']);
- $is_ban =validate($_POST['is_ban'])== true?1:0;
+ $is_ban =validate($_POST['is_ban'])== true? 1:0;
 
  $emailCheck = mysqli_query($con,"SELECT * FROM admins WHERE email='$email' AND id!='$adminId'");
   if($emailCheck){
