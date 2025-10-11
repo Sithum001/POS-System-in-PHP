@@ -11,7 +11,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-bell"></i></div>
                                 Create Order
                             </a>
-                             <a class="nav-link" href="order.php">
+                             <a class="nav-link" href="orders.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-list"></i></div>
                                 Orders
                             </a>
