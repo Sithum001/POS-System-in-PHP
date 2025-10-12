@@ -12,6 +12,19 @@
 
         <?php  
          if (isset($_GET['track'])) {
+                if ($_GET['track'] == '') {
+                    ?>
+                     <div class="text-center py-5">
+            <h5>No Tracking Number Found</h5>
+            <div>
+                <a href="orders.php" class="btn btn-primary mt-4 w-25" > GO back to orders</a>
+            </div>
+        </div>
+                    <?php
+                    
+                    return false;
+                }
+
             $trackingNo = validate($_GET['track']);
               $query = "SELECT o.*, c.* FROM orders o, customers c WHERE c.id = o.customer_id AND tracking_no='$trackingNo'  ORDER BY o.id DESC";
 
@@ -67,9 +80,64 @@
                             </div>
                         </div>
                        </div>
+                       <?php
 
+                       $orderItemQuery ="SELECT oi.quantity as orderItemQuantity,oi.price as orderItemPrice, o.*,oi.*,p.* FROM orders as o,order_items as oi, products as p WHERE oi.order_id =o.id AND p.id =oi.product_id AND o.tracking_no='$trackingNo'";
+                       $orderItemsRes = mysqli_query($con,$orderItemQuery);
+                       if ($orderItemsRes) {
+                        if (mysqli_num_rows($orderItemsRes)>0) {
+                            ?>
+                             <h4 class="my-3">Order  Items Details</h4>
+                             <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach($orderItemsRes as $orderItemRow): ?>
+                                        <tr>
+                                            <td>
+                                                <img src=" <?= $orderItemRow['image'] !='' ? '../'.$orderItemRow['image']:'No Img'; ?>" alt="Img"
+                                                style="width:50px;height:50px;"
+                                                />
+                                                <?= $orderItemRow['name']; ?>
+                                             </td>
+                                             <td width="15%" class="fw-bold text-center">
+                                                <?= number_format($orderItemRow['orderItemPrice'],0) ?>
+                                             </td>
+                                                 <td width="15%" class="fw-bold text-center">
+                                                <?= $orderItemRow['orderItemQuantity']; ?>
+                                             </td>
+                                                 <td width="15%" class="fw-bold text-center">
+                                                <?= number_format($orderItemRow['orderItemPrice'] * $orderItemRow['orderItemQuantity'],0) ?>
+                                             </td>
+                                        </tr>
+ 
+                                        <?php endforeach; ?>
+                                        <tr>
+                                            <td class="text-end fw-bold">Total Price:</td>
+                                            <td colspan="3" class="text-end fw-bold">Rs:<?=number_format($orderItemRow['total_amount'],0); ?></td>
+                                        </tr>
+                                </tbody>
+                             </table>
 
+                            <?php
+                        } else {
+                            echo"<h5>Something went Wrong</h5>";
+                            return false;
+                        }
+                        
+                       } else {
+                        echo"<h5>Something went Wrong</h5>";
+                        return false;
+                       }
                        
+                       ?>
+
                    <?php
                 }
                 else {
@@ -81,6 +149,16 @@
             }
             
             
+         }
+         else {
+        ?>
+        <div class="text-center py-5">
+            <h5>No Tracking No Found</h5>
+            <div>
+                <a href="orders.php" class="btn btn-primary mt-4 w-25" > GO back to orders</a>
+            </div>
+        </div>
+        <?php
          }
         ?>
          </div>
