@@ -3,7 +3,8 @@
     <div class="card mt-4 shadow-sm">
         <div class="card-header">
             <h4 class="mb-0">orders View
-                <a href="" class="btn btn-dander mx-2 btn-sm float-end">Back</a>
+                <a href="orders-view-print.php?track=<?= $_GET['track']?>" class="btn btn-dander mx-2 btn-sm float-end">Back</a>
+                <a href="orders.php" class="btn btn-dander mx-2 btn-sm float-end">Back</a>
             </h4>
         </div>
         <div class="card-body">
